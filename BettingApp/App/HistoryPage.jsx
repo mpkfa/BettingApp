@@ -1,0 +1,1 @@
+﻿const HistoryPage = () => <div>TODO: Tickets history</div>;

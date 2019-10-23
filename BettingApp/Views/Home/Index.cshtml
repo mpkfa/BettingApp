@@ -1,0 +1,41 @@
+﻿@using BettingApp.Common
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <title>@Config.ApplicationName loading...</title>
+    @Styles.Render( "~/Content/css" )
+    <script>
+        var appName = '@Config.ApplicationName';
+    </script>
+</head>
+<body class="full-height">
+    <!-- Content -->
+    <div id="content" class="d-flex align-items-center flex-column justify-content-center h-100 bg-dark text-white">
+        <!-- Splash screen -->
+        <div class="text-center">
+            <h1>@Config.ApplicationName</h1>
+        </div>
+        <div class="d-block justify-content-center">
+            <img src="~/Content/Images/logo.svg" width="500" height="500"/>
+        </div>
+        <div class="text-center"><p>&copy; Petar Boban 2019</div>
+        <div></div>
+        <div class="d-block spinner-border justify-content-center" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.0/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.0/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+
+    @*@Scripts.Render( "~/bundles/react" )*@
+    @Scripts.Render( "~/bundles/modernizr" )
+    @Scripts.Render( "~/bundles/jquery" )
+    @Scripts.Render( "~/bundles/bootstrap" )
+    @Scripts.Render( "~/bundles/app" )
+</body>
+</html>
