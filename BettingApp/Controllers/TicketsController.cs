@@ -27,6 +27,7 @@ namespace BettingApp.Controllers
                 .Include( x => x.Bets )
                 .Include( x => x.Bets.Select( t => t.Offer ) )
                 .Include( x => x.Bets.Select( t => t.Offer.Event ) )
+                .Include( x => x.Bets.Select( t => t.Offer.Event.Sport ) )
                 .Include( x => x.Bets.Select( t => t.Odd ) )
                 .Include( x => x.Bets.Select( t => t.Odd.BetOption ) )
                 .ToList();
@@ -89,19 +90,10 @@ namespace BettingApp.Controllers
                 return BadRequest( ModelState );
             }
 
-            //ticket.TicketItems = db.TicketItems.Where( x => ticket.TicketItems.Select( t => t.Id ).Contains( x.Id ) ).ToList();
-
-
-            //var offersList = db.Offers.ToList();
-            //var optionsList = db.Options.ToList();
-
-            //ticket.TicketItems = ticket.TicketItems.Select( x => new TicketItem
-            //{
-
-            //} ).ToList();
-            //ticket.User = db.Users.FirstOrDefault( x => x.Id == ticket.UserId );
-
+            // TODO logirat transakciju
+            db.Users.Find( ticket.UserId ).Credit -= ticket.Amount;
             db.Tickets.Add(ticket);
+
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = ticket.Id }, ticket);

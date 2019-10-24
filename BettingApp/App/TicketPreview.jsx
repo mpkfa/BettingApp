@@ -11,8 +11,8 @@
 
     return (
         <table className="table">
-            <thead className="thead-dark">
-                <tr>
+            <thead>
+                <tr className="table-primary">
                     <td/>
                     <td className="text-center">Game</td>
                     <td/>
@@ -23,14 +23,14 @@
             <tbody>
                 {bets.map((x, i) => (
                     <tr id={'tp-' + i} className="p-0">
-                        <td className="text-center">{x.offer.Event.Participant1}</td>
-                        <td className="text-center">vs</td>
-                        <td className="text-center">{x.offer.Event.Participant2}</td>
+                        <td className="text-right">{x.offer.Event.Participant1}</td>
+                        <td className="text-center"><img src={"Content/Images/Sports/" + x.offer.Event.Sport.Icon} /></td>
+                        <td className="text-left">{x.offer.Event.Participant2}</td>
                         <td className="text-center">{x.option}</td>
                         <td className="text-center">{x.coefficient.toFixed(2)}</td>
                     </tr>
                 ))}
-                <tr>
+                <tr className="text-right badge-success">
                     <td className="text-right" colSpan="4">Total coefficient</td>
                     <td className="text-center">{coefficient.toFixed(2)}</td>
                 </tr>

@@ -1,5 +1,6 @@
 ﻿const App = () => {
     const [modal, setModal] = React.useState(<Modal />);
+    const [appUser, setAppUser] = React.useState(user);
 
     const openPage = (page) => {
         currentPageName = page.type.name.replace('Page', '');
@@ -29,8 +30,13 @@
             };
 
             apiPost('tickets', ticket, () => {
-                openPage(<TicketsPage />);
-                $('#modal').modal('hide');
+                apiGet('users/' + user.Id, result => {
+                    user = result;
+                    $('#modal').modal('hide');
+                    activeTicket.clear();
+                    setAppUser(user);
+                    setPage(<TicketsPage />);
+                });
             });
         }} />);
         $('#modal').modal();
@@ -41,7 +47,7 @@
     const NavItem = ({ text, page }) => {
         return (
             <li className={"nav-item" + (currentPageName == page.type.name.replace('Page', '') ? " active" : "")}>
-                <a className="nav-link" href="" onClick={event => pageClick(event, page)}>{text}</a>
+                <a id={'nav-item-' + page.type.name} className="nav-link" href="" onClick={event => pageClick(event, page)}>{text}</a>
             </li>
         )
     }
@@ -61,7 +67,7 @@
                         <NavItem text="History" page={<HistoryPage />} />
                     </ul>
                     <ul className="navbar-nav ml-auto">
-                        <NavItem text={user.DisplayName + ' - €' + parseFloat(user.Credit).toFixed(2)} page={<AccountPage />} />
+                        <NavItem text={appUser.DisplayName + ' - €' + parseFloat(appUser.Credit).toFixed(2)} page={<AccountPage />} />
                     </ul>
                 </div>
             </div>
