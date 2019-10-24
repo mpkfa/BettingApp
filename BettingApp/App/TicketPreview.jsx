@@ -1,5 +1,5 @@
-﻿const TicketPreview = ({ offers }) => {
-    const coefficient = getCoefficient(offers);
+﻿const TicketPreview = ({ bets }) => {
+    const coefficient = getCoefficient(bets);
 
     const calculate = () => {
         let amount = $('#bet-amount').val();
@@ -12,7 +12,7 @@
     return (
         <table className="table">
             <thead className="thead-dark">
-                <tr id='tp-head'>
+                <tr>
                     <td/>
                     <td className="text-center">Game</td>
                     <td/>
@@ -21,7 +21,7 @@
                 </tr>
             </thead>
             <tbody>
-                {offers.map((x, i) => (
+                {bets.map((x, i) => (
                     <tr id={'tp-' + i} className="p-0">
                         <td className="text-center">{x.offer.Event.Participant1}</td>
                         <td className="text-center">vs</td>
@@ -30,11 +30,11 @@
                         <td className="text-center">{x.coefficient.toFixed(2)}</td>
                     </tr>
                 ))}
-                <tr id='tp-tc'>
+                <tr>
                     <td className="text-right" colSpan="4">Total coefficient</td>
                     <td className="text-center">{coefficient.toFixed(2)}</td>
                 </tr>
-                <tr id='tp-ba'>
+                <tr>
                     <td className="align-middle text-right" colSpan="2"><h5>Bet amount</h5></td>
                     <td>
                         <input type="number" min="1" max={user.Credit} className="form-control" id="bet-amount" placeholder="" onChange={calculate} />

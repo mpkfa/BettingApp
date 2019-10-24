@@ -38,7 +38,7 @@ const apiCall = (type, url, onSuccess, data) => {
 
 // Client data
 
-const getActiveTicketOffers = () => Array.from(activeTicket.entries())
+const getCurrentBets = () => Array.from(activeTicket.entries())
     .filter(([k, v]) => v > 0)
     .map(([k, v]) => {
         var offer = allOffers.find(o => o.Id == k);
@@ -46,12 +46,13 @@ const getActiveTicketOffers = () => Array.from(activeTicket.entries())
         return ({
             offer: offer,
             option: odd.BetOption.Value,
-            coefficient: odd.Coefficient
+            coefficient: odd.Coefficient,
+            odd: odd,
         })
     });
 
 const getCoefficient = (offers) => {
-    offers = offers || getActiveTicketOffers();
+    offers = offers || getCurrentBets();
     let coefficient = 1.0;
     offers.forEach(bet => coefficient *= bet.coefficient);
     return coefficient;
@@ -60,7 +61,7 @@ const getCoefficient = (offers) => {
 // UI
 
 const updateTicketInfo = () => {
-    let bets = getActiveTicketOffers();
+    let bets = getCurrentBets();
     let ticketInfo = $("#ticket-info");
 
     let setInfo = (canCreateTicket, infoText) => {

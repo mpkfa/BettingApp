@@ -15,15 +15,17 @@
     }
 
     const createTicket = () => {
-        setModal(<Modal title='Create ticket' body={<TicketPreview offers={getActiveTicketOffers()} />} okText='Create' okAction={() => {
+        const bets = getCurrentBets();
+
+        setModal(<Modal title='Create ticket' body={<TicketPreview bets={bets} />} okText='Create' okAction={() => {
             var ticket = {
-                Amount: 55.55,
-                UserId: 1,
-                CreatedOn: new Date().toJSON(),
-                TicketItems: [{
-                    OfferId: 1,
-                    OptionId: 1
-                }]
+                Amount: $('#bet-amount').val(),
+                UserId: user.Id,
+                CreatedUtc: new Date(),
+                Bets: bets.map(x => ({
+                    OfferId: x.offer.Id,
+                    OddId: x.odd.Id
+                }))
             };
 
             apiPost('tickets', ticket, () => {
