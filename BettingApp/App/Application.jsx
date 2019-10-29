@@ -15,7 +15,7 @@ const getTime = () => formatTime(new Date());
 const pad = (num, size) => ('000000000' + num).substr(-size);
 
 // API
-
+// TODO axios + error handling
 const apiGet = (url, onSuccess) => apiCall('GET', url, onSuccess);
 const apiPost = (url, data, onSuccess) => apiCall('POST', url, onSuccess, data);
 const apiPut = (url, data, onSuccess) => apiCall('PUT', url, onSuccess, data);

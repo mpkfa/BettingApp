@@ -1,0 +1,4 @@
+﻿- repository
+- game simulator
+- signalr live updates
+- api error handling
